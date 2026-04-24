@@ -119,6 +119,8 @@ export default function CommentsListScreen() {
             ListHeaderComponent={
               <SearchInput value={query} onChangeText={handleSearchChange} />
             }
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             onMomentumScrollBegin={handleMomentumScrollBegin}
             onEndReached={handleEndReached}
             onEndReachedThreshold={0.6}
