@@ -79,7 +79,7 @@ export default function CommentsListScreen() {
     <>
       <Stack.Screen
         options={{
-          title: `Comments (${comments.length})`,
+          title: "Comments",
           headerStyle: {
             backgroundColor: COLORS.background,
           },
