@@ -1,10 +1,10 @@
+import { Stack, useLocalSearchParams } from "expo-router";
+import { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useCallback, useState } from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { SearchInput } from "../components/SearchInput";
-import { COLORS, SHADOW, SPACING, TYPOGRAPHY } from "../theme";
+import { SearchInput } from "../components";
 import { CommentDetailParams } from "../navigation/routes";
+import { COLORS, SHADOW, SPACING, TYPOGRAPHY } from "../theme";
 
 export default function CommentDetailScreen() {
   const params = useLocalSearchParams() as CommentDetailParams;
@@ -28,7 +28,9 @@ export default function CommentDetailScreen() {
           headerStyle: {
             backgroundColor: COLORS.background,
           },
+          headerTintColor: COLORS.text,
           headerTitleStyle: {
+            color: COLORS.text,
             fontWeight: "700",
           },
         }}
@@ -36,7 +38,10 @@ export default function CommentDetailScreen() {
       <SafeAreaView style={styles.container}>
         <SearchInput value={query} onChangeText={handleSearchChange} />
         <View style={styles.card}>
-          <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+            showsVerticalScrollIndicator={false}
+          >
             <Text style={styles.title}>{params.name}</Text>
             <View style={styles.metaRow}>
               <View style={styles.avatar}>
@@ -47,7 +52,9 @@ export default function CommentDetailScreen() {
               </View>
             </View>
             <Text style={styles.body}>{params.body}</Text>
-            <Text style={styles.postMeta}>{`Post ID: ${params.postId}, Comment ID: ${params.id}`}</Text>
+            <Text
+              style={styles.postMeta}
+            >{`Post ID: ${params.postId}, Comment ID: ${params.id}`}</Text>
             <Text style={styles.postedAt}>Posted 2 mins ago</Text>
           </ScrollView>
         </View>

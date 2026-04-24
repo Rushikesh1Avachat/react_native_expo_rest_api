@@ -1,25 +1,35 @@
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, useRouter } from "expo-router";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { Stack, useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { CommentRow } from "../components/CommentRow";
-import { ErrorView } from "../components/ErrorView";
-import { Loader } from "../components/Loader";
-import { SearchInput } from "../components/SearchInput";
+import { CommentRow, ErrorView, Loader, SearchInput } from "../components";
 import { useComments } from "../hooks/useComments";
-import { filterComments } from "../utils/commentUtils";
+import { ROUTES } from "../navigation/routes";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 import { Comment } from "../types/comment";
-import { ROUTES } from "../navigation/routes";
+import { filterComments } from "../utils/commentUtils";
 
 export default function CommentsListScreen() {
   const [query, setQuery] = useState("");
   const scrollMomentum = useRef(false);
   const router = useRouter();
-  const { comments, initialLoading, loadingMore, refreshing, error, hasMore, loadNextPage, refresh, retry } = useComments();
+  const {
+    comments,
+    initialLoading,
+    loadingMore,
+    refreshing,
+    error,
+    hasMore,
+    loadNextPage,
+    refresh,
+    retry,
+  } = useComments();
 
-  const filteredComments = useMemo(() => filterComments(comments, query), [comments, query]);
+  const filteredComments = useMemo(
+    () => filterComments(comments, query),
+    [comments, query],
+  );
 
   const handlePress = useCallback(
     (comment: Comment) => {
@@ -34,14 +44,17 @@ export default function CommentsListScreen() {
         },
       });
     },
-    [router]
+    [router],
   );
 
-  const handleSearchChange = useCallback((value: string) => setQuery(value), []);
+  const handleSearchChange = useCallback(
+    (value: string) => setQuery(value),
+    [],
+  );
 
   const canLoadMore = useMemo(
     () => hasMore && !loadingMore && !initialLoading && !refreshing,
-    [hasMore, loadingMore, initialLoading, refreshing]
+    [hasMore, loadingMore, initialLoading, refreshing],
   );
 
   const handleMomentumScrollBegin = useCallback(() => {
@@ -56,19 +69,23 @@ export default function CommentsListScreen() {
   }, [canLoadMore, loadNextPage]);
 
   const renderItem = useCallback(
-    ({ item }: { item: Comment }) => <CommentRow item={item} onPress={() => handlePress(item)} />,
-    [handlePress]
+    ({ item }: { item: Comment }) => (
+      <CommentRow item={item} onPress={() => handlePress(item)} />
+    ),
+    [handlePress],
   );
 
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Comments",
+          title: `Comments (${comments.length})`,
           headerStyle: {
             backgroundColor: COLORS.background,
           },
+          headerTintColor: COLORS.text,
           headerTitleStyle: {
+            color: COLORS.text,
             fontWeight: "700",
           },
           headerRight: () => (
@@ -94,8 +111,14 @@ export default function CommentsListScreen() {
             data={filteredComments}
             renderItem={renderItem}
             keyExtractor={(item: Comment) => item.id.toString()}
-            contentContainerStyle={filteredComments.length === 0 ? styles.emptyList : styles.listContainer}
-            ListHeaderComponent={<SearchInput value={query} onChangeText={handleSearchChange} />}
+            contentContainerStyle={
+              filteredComments.length === 0
+                ? styles.emptyList
+                : styles.listContainer
+            }
+            ListHeaderComponent={
+              <SearchInput value={query} onChangeText={handleSearchChange} />
+            }
             onMomentumScrollBegin={handleMomentumScrollBegin}
             onEndReached={handleEndReached}
             onEndReachedThreshold={0.6}
@@ -103,7 +126,13 @@ export default function CommentsListScreen() {
             maxToRenderPerBatch={10}
             windowSize={7}
             removeClippedSubviews
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={COLORS.primary} />}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={refresh}
+                tintColor={COLORS.primary}
+              />
+            }
             ListFooterComponent={
               loadingMore ? (
                 <Loader inline message="Loading more comments..." />
@@ -114,7 +143,9 @@ export default function CommentsListScreen() {
             ListEmptyComponent={
               <View style={styles.emptyState}>
                 <Text style={styles.emptyText}>
-                  {query ? "No comments match your search." : "No comments found."}
+                  {query
+                    ? "No comments match your search."
+                    : "No comments found."}
                 </Text>
               </View>
             }
