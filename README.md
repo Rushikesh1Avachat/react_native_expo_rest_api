@@ -1,50 +1,107 @@
-# Welcome to your Expo app 👋
+# React Native Expo REST API App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A two-screen React Native application built with Expo that fetches comments from a public REST API, displays them in a performant paginated list, and navigates to a detail screen.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Comments List**: Paginated list with lazy loading, search functionality, and pull-to-refresh
+- **Comment Detail**: Full comment view with navigation parameters
+- **Clean UI**: Minimal design with consistent spacing and typography
+- **Performance**: Optimized FlatList with virtualization
+- **Error Handling**: Retry mechanisms and loading states
 
+## Tech Stack
+
+- **Framework**: React Native with Expo
+- **Navigation**: Expo Router (Stack Navigation)
+- **API**: JSONPlaceholder (https://jsonplaceholder.typicode.com/comments)
+- **HTTP Client**: Axios
+- **State Management**: React Hooks (useState, useEffect, useCallback, useMemo)
+- **Styling**: StyleSheet with theme constants
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Expo CLI: `npm install -g @expo/cli`
+- Android Studio (for Android emulator) or Xcode (for iOS simulator)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/react_native_expo_rest_api.git
+   cd react_native_expo_rest_api
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the Expo development server:
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Run Steps
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Android
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. Start the Expo server: `npx expo start`
+2. Press `a` to open Android emulator, or scan QR code with Expo Go app on device
 
-## Get a fresh project
+### iOS
 
-When you're ready, run:
+1. Start the Expo server: `npx expo start`
+2. Press `i` to open iOS simulator, or scan QR code with Expo Go app on device
 
-```bash
-npm run reset-project
+### Web
+
+1. Start the Expo server: `npx expo start`
+2. Press `w` to open in web browser
+
+## Screenshots
+
+### Comments List Screen
+![Comments List](screenshots/comments_list.png)
+
+### Comment Detail Screen
+![Comment Detail](screenshots/comment_detail.png)
+
+## Assumptions and Trade-offs
+
+- **API**: Uses JSONPlaceholder for demo purposes. In production, replace with real API endpoints.
+- **Pagination**: Implements client-side pagination with API query parameters. For large datasets, consider server-side pagination.
+- **Search**: Client-side filtering of loaded comments. For better performance with large datasets, implement server-side search.
+- **Platform**: Tested on Android/iOS. Web support is basic due to Expo Router limitations.
+- **Dependencies**: Minimal dependencies to keep bundle size small. Added only essential packages.
+- **Error Handling**: Basic error states. In production, add more sophisticated error boundaries and logging.
+- **Performance**: Optimized for 500 comments. For larger datasets, consider virtualization improvements.
+
+## Project Structure
+
+```
+src/
+├── api/           # API calls
+├── components/    # Reusable UI components
+├── hooks/         # Custom React hooks
+├── navigation/    # Navigation configuration
+├── screens/       # Screen components
+├── theme/         # Theme constants
+├── types/         # TypeScript types
+└── utils/         # Utility functions
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Contributing
 
-## Learn more
+1. Fork the repository
+2. Create a feature branch
+3. Make changes and test
+4. Submit a pull request
 
-To learn more about developing your project with Expo, look at the following resources:
+## License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+MIT License
