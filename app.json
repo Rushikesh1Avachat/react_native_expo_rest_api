@@ -11,6 +11,7 @@
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -19,12 +20,15 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.avachatrushikesh90.react_native_expo_rest_api"
     },
+
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
+
     "plugins": [
       "expo-router",
       [
@@ -40,9 +44,14 @@
         }
       ]
     ],
+
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+
+    "extra": {
+      "router": {}
     }
   }
 }
